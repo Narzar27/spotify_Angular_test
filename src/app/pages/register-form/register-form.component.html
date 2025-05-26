@@ -1,0 +1,216 @@
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
+  <h2 class="text-2xl font-bold mb-6 text-center">Register New Artist</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <!-- Artist Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label>First Name*</label>
+        <input
+          type="text"
+          formControlName="firstName"
+          class="input"
+          placeholder="Enter first name"
+          title="First Name"
+        />
+        <div
+          *ngIf="
+            registerForm.get('firstName')?.touched &&
+            registerForm.get('firstName')?.invalid
+          "
+          class="text-red-500 text-sm"
+        >
+          First name is required (min 3 characters)
+        </div>
+      </div>
+
+      <div>
+        <label>Last Name*</label>
+        <input
+          type="text"
+          formControlName="lastName"
+          class="input"
+          placeholder="Enter last name"
+          title="Last Name"
+        />
+        <div
+          *ngIf="
+            registerForm.get('lastName')?.touched &&
+            registerForm.get('lastName')?.invalid
+          "
+          class="text-red-500 text-sm"
+        >
+          Last name is required (min 3 characters)
+        </div>
+      </div>
+
+      <div>
+        <label>Date of Birth*</label>
+        <input
+          type="date"
+          formControlName="dob"
+          class="input"
+          placeholder="Select date of birth"
+          title="Date of Birth"
+        />
+        <div
+          *ngIf="
+            registerForm.get('dob')?.errors?.['minAge'] &&
+            registerForm.get('dob')?.touched
+          "
+          class="text-red-500 text-sm"
+        >
+          Artist must be at least 25 years old
+        </div>
+      </div>
+
+      <div>
+        <label>Email*</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="input"
+          placeholder="Enter email address"
+          title="Email"
+        />
+      </div>
+
+      <div>
+        <label>Phone*</label>
+        <input
+          type="text"
+          formControlName="phone"
+          class="input"
+          placeholder="Enter phone number"
+          title="Phone"
+        />
+      </div>
+
+      <div>
+        <label>Profile Picture URL*</label>
+        <input
+          type="text"
+          formControlName="profilePicture"
+          class="input"
+          placeholder="Enter profile picture URL"
+          title="Profile Picture URL"
+        />
+      </div>
+    </div>
+
+    <!-- Optional Fields -->
+    <div class="mt-4">
+      <label>Stage Name (optional)</label>
+      <input
+        type="text"
+        formControlName="stageName"
+        class="input"
+        placeholder="Enter stage name"
+        title="Stage Name"
+      />
+    </div>
+    <div class="mt-2">
+      <label>Backstory (optional)</label>
+      <textarea
+        formControlName="backstory"
+        class="input"
+        placeholder="Enter artist backstory"
+        title="Backstory"
+      ></textarea>
+    </div>
+    <div class="mt-2">
+      <label>Starting Date (optional)</label>
+      <input
+        type="date"
+        formControlName="startingDate"
+        class="input"
+        placeholder="Select starting date"
+        title="Starting Date"
+      />
+    </div>
+    <div class="mt-6">
+      <h3 class="text-xl font-semibold mb-2">Albums</h3>
+      <button type="button" (click)="addAlbum()" class="btn mb-4">
+        + Add Album
+      </button>
+
+      <div
+        formArrayName="albums"
+        *ngFor="let album of albums.controls; let i = index"
+        [formGroupName]="i"
+        class="mb-6 border p-4 rounded-lg"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label>Album Picture URL</label>
+            <input
+              type="text"
+              formControlName="picture"
+              class="input"
+              placeholder="Enter album picture URL"
+              title="Album Picture URL"
+            />
+          </div>
+          <div>
+            <label>Release Date</label>
+            <input
+              type="date"
+              formControlName="date"
+              class="input"
+              placeholder="Select album release date"
+              title="Album Release Date"
+            />
+          </div>
+        </div>
+
+        <!-- Songs for this album -->
+        <div formArrayName="songs" class="mt-4">
+          <h4 class="text-md font-semibold mb-1">Songs</h4>
+          <div
+            *ngFor="let song of getSongs(i).controls; let j = index"
+            [formGroupName]="j"
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2"
+          >
+            <input
+              type="text"
+              formControlName="name"
+              class="input"
+              placeholder="Song Name"
+            />
+            <input
+              type="text"
+              formControlName="duration"
+              class="input"
+              placeholder="Duration"
+            />
+            <button
+              type="button"
+              (click)="removeSong(i, j)"
+              class="text-red-600 text-sm col-span-2"
+            >
+              Remove Song
+            </button>
+          </div>
+          <button
+            type="button"
+            (click)="addSong(i)"
+            class="text-blue-600 text-sm"
+          >
+            + Add Song
+          </button>
+        </div>
+
+        <button
+          type="button"
+          (click)="removeAlbum(i)"
+          class="text-red-500 text-sm mt-2"
+        >
+          Remove Album
+        </button>
+      </div>
+    </div>
+    <div class="text-center mt-6">
+      <button type="submit" class="btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
