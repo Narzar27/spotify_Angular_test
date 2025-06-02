@@ -10,7 +10,9 @@
         [title]="album.name"
         class="w-full rounded"
       />
-      <div class="mt-2 text-md font-medium">{{ album.name }}</div>
+      <div class="mt-2 text-md font-medium">
+        {{ album.name | truncate : 15 }}
+      </div>
       <div class="text-xs text-gray-500">{{ album.release_date }}</div>
     </div>
   </div>

@@ -2,11 +2,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { C } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-browse-artists',
-  imports: [CommonModule],
+  imports: [CommonModule, TruncatePipe],
   standalone: true,
   templateUrl: './browse-artists.component.html',
   styleUrl: './browse-artists.component.css',

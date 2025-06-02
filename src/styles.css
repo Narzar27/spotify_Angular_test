@@ -2,14 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.input {
-  @apply w-full p-2 border border-gray-300 rounded mt-1;
-}
-.btn {
-  @apply bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition;
-}
-.btn-primary {
-  @apply bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition;
+/* Optional custom styles */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

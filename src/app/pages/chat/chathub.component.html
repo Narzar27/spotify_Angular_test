@@ -1,0 +1,25 @@
+<div class="p-4 max-w-md mx-auto bg-black rounded shadow">
+  <h2 class="text-xl font-bold mb-2">SignalR Chat</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="message"
+    placeholder="Type your message"
+    class="w-full border px-2 py-1 mb-2 rounded"
+  />
+
+  <button
+    (click)="send()"
+    class="bg-green-600 text-white px-4 py-1 rounded w-full"
+  >
+    Send Message
+  </button>
+
+  <div class="mt-4 space-y-2">
+    <ul>
+      @for (msg of messages(); track $index) {
+      <li>{{ msg }}</li>
+      }
+    </ul>
+  </div>
+</div>
