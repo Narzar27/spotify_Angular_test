@@ -1,11 +1,15 @@
+<p-progressSpinner
+  *ngIf="loader.loading()"
+  styleClass="overlay-spinner"
+  strokeWidth="4"
+  animationDuration=".5s"
+></p-progressSpinner>
 <nav class="flex gap-4 bg-gray-800 text-white p-4">
-  <a routerLink="/" href="/" class="hover:underline">Landing</a>
-  <a routerLink="/search" href="/search" class="hover:underline">Search</a>
-  <a routerLink="/browse" href="/browse" class="hover:underline">Browse</a>
-  <a routerLink="/register" href="/register" class="hover:underline"
-    >Register</a
-  >
-  <a routerLink="/chat" href="/chat" class="hover:underline">Chat</a>
+  <a [routerLink]="'/'" class="hover:underline">Landing</a>
+  <a [routerLink]="'/search'" class="hover:underline">Search</a>
+  <a [routerLink]="'/browse'" class="hover:underline">Browse</a>
+  <a [routerLink]="'/register'" class="hover:underline">Register</a>
+  <a [routerLink]="'/chat'" class="hover:underline">Chat</a>
 </nav>
 
 <router-outlet></router-outlet>

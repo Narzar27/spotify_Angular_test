@@ -1,9 +1,11 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { UnsavedChangesGuard } from './guards/unsaved-changes.guard';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
-
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
@@ -11,14 +13,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([AuthInterceptor, LoadingInterceptor])),
     providePrimeNG({
       theme: {
         preset: Aura,
         options: {
           prefix: 'p',
-          darkModeSelector: 'system',
-          cssLayer: false,
         },
       },
     }),

@@ -5,6 +5,7 @@ import { ArtistSearchComponent } from './pages/artist-search/artist-search.compo
 import { RegisterFormComponent } from './pages/register-form/register-form.component';
 import { ChatHubComponent } from './pages/chat/chathub.component';
 import { AuthGuard } from './guards/auth.guard';
+import { UnsavedChangesGuard } from './guards/unsaved-changes.guard';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterFormComponent,
     canActivate: [AuthGuard],
+    canDeactivate: [UnsavedChangesGuard],
   },
   {
     path: 'chat',

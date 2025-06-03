@@ -8,7 +8,6 @@ import {
   ReactiveFormsModule,
   AbstractControl,
 } from '@angular/forms';
-//imports for angular forms and validation
 
 @Component({
   selector: 'app-register-form',
@@ -17,11 +16,15 @@ import {
   templateUrl: './register-form.component.html',
 })
 export class RegisterFormComponent implements OnInit {
-  private fb = inject(FormBuilder); //fb is used to create reactive forms instead of new FormGroup()
+  private fb = inject(FormBuilder);
 
-  registerForm!: FormGroup; //holds your main form
+  registerForm!: FormGroup;
 
-  //here we are building the form using FormBuilder
+  // Expose the form for the guard
+  get form(): FormGroup {
+    return this.registerForm;
+  }
+
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -43,7 +46,6 @@ export class RegisterFormComponent implements OnInit {
     });
   }
 
-  // Custom age validator
   minAgeValidator(minAge: number) {
     return (control: AbstractControl) => {
       const dob = new Date(control.value);
@@ -51,11 +53,11 @@ export class RegisterFormComponent implements OnInit {
       return age >= minAge ? null : { minAge: true };
     };
   }
-  //getter for albums
+
   get albums(): FormArray {
     return this.registerForm.get('albums') as FormArray;
   }
-  //to add albums
+
   addAlbum(): void {
     const album = this.fb.group({
       picture: [''],
@@ -65,7 +67,6 @@ export class RegisterFormComponent implements OnInit {
     this.albums.push(album);
   }
 
-  //to remove albums
   removeAlbum(index: number): void {
     this.albums.removeAt(index);
   }
