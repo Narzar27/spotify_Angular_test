@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SpotifyAuthService } from '../../services/spotify-auth.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 //Component decorator defines the metadata for the component
 @Component({
@@ -17,7 +18,8 @@ export class LandingComponent {
   constructor(
     private auth: SpotifyAuthService,
     private route: ActivatedRoute, //Let's us check the current URL
-    private router: Router //Allows us to navigate to different routes in the app
+    private router: Router, //Allows us to navigate to different routes in the app
+    private oauthService: OAuthService
   ) {
     this.route.queryParams.subscribe(async (params) => {
       if (params['code']) {
@@ -29,6 +31,9 @@ export class LandingComponent {
         }
       }
     });
+  }
+  loginWithGoogle() {
+    this.oauthService.initLoginFlow();
   }
 
   login() {
